@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+.env
+artifacts/
+.env.*
+!.env.example
+wheelhouse/
+.pgdata/
+*.pem
+*.key

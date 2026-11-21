@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: heart_experiments
+      POSTGRES_USER: heart_app
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your environment}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - heart-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "heart_app", "-d", "heart_experiments"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  heart-postgres:
