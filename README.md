@@ -60,6 +60,36 @@ Application startup uses saved results. It performs no training or holdout scori
 See [release notes](RELEASE.md) for the run bundle layout, model checksum, verified
 versions, and publication status.
 
+### Prevention Visit print walkthrough
+
+Open **Prevention Visit** in Streamlit. The summary can be generated without the
+model or PostgreSQL. Use fictional entries for the walkthrough.
+
+1. Choose **Fictional example**, then **Europe** and **mmol/L**. Use the filled
+   measurements of 132/82 mm Hg, 5.12 mmol/L total cholesterol, and 1.45 mmol/L
+   HDL. Set the blood pressure and cholesterol dates to 2026-11-20 and
+   2026-11-21, and set current smoking to **No**.
+2. Enter only **4.2%** in Clinician assessment and submit. Check that the app
+   flags the incomplete assessment and offers no download. Complete it with
+   **Fictional risk tool**, **Fictional calibration cohort**, **10 years**,
+   **Fictional cardiovascular outcome**, and **2026-11-22**.
+3. For a wrapping check, paste 12 repetitions of
+   `Please discuss our fictional prevention plan. ` and append
+   `SyntheticReference` followed by 130 X characters. Generate and download
+   the HTML, open it in Edge, and choose **Print → Save as PDF**, Letter,
+   normal scale. Turn off **Headers and footers** to omit the local file path.
+4. Repeat with **Blank summary** and **mg/dL**. Enter age 54 and total
+   cholesterol 198 mg/dL and use the same wrapping note. Leave the other
+   measurements and external assessment blank. Check for **Not recorded**.
+
+**Verified:** Streamlit AppTest generated both download payloads and confirmed
+the partial-entry error. Microsoft Edge headless print-to-PDF on Letter
+produced one page per case after the print styles were tightened. The rendered
+pages were reviewed for units, ISO dates, long-word wrapping, section breaks,
+missing values, and the external estimate and its provenance. Browser headers
+and footers were disabled for the final PDFs. Other browsers, physical
+printers, and non-default paper sizes were outside this check.
+
 ### Optional PostgreSQL
 
 Start Docker Desktop. Run these commands in PowerShell from the project directory.

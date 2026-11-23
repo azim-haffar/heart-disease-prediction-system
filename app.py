@@ -10,6 +10,7 @@ import streamlit as st
 from heart_disease.dataset import FEATURES
 from heart_disease.demo import MODEL_NAMES, NUMBERS, OPTIONS, PROFILES
 from heart_disease.inference import load_trusted_model
+from heart_disease.prevention import prevention_visit
 from heart_disease.saved_run import read_saved_run
 
 ROOT = Path(__file__).resolve().parent
@@ -164,11 +165,13 @@ reserves 61 observations for the recorded final evaluation.
 
 st.set_page_config(page_title="Cleveland Heart Disease Explorer", layout="wide")
 st.title("Cleveland Heart Disease Explorer")
-page = st.radio("Section", ["Prediction Demo", "Model Comparison", "Dataset and Methodology"],
+page = st.radio("Section", ["Prediction Demo", "Model Comparison", "Dataset and Methodology", "Prevention Visit"],
                 horizontal=True)
 if page == "Prediction Demo":
     prediction()
 elif page == "Model Comparison":
     comparison()
+elif page == "Prevention Visit":
+    prevention_visit()
 else:
     methodology()
